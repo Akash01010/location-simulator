@@ -6,6 +6,8 @@ import com.google.maps.model.LatLng;
 import com.simulator.location.service.LineService;
 import com.simulator.location.service.MapsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,13 +27,13 @@ public class LocationController {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @GetMapping("/getpath/{data}")
-    public List<LatLng> getPathCoordinates(@PathVariable(value = "data") String data) throws IOException, InterruptedException, ApiException {
+    public ResponseEntity<List<LatLng>> getPathCoordinates(@PathVariable(value = "data") String data) throws IOException, InterruptedException, ApiException {
         String[] coordinates = data.split(",");
         List<LatLng> sumInit = mapsService.getPathBetweenMarkers(new LatLng(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])), new LatLng(Double.parseDouble(coordinates[2]), Double.parseDouble(coordinates[3])));
         List<LatLng> sumFinal = mapsService.getPathBetweenMarkersAtFixedDistance(new LatLng(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])), new LatLng(Double.parseDouble(coordinates[2]), Double.parseDouble(coordinates[3])));
 
         verifyResult(sumInit, sumFinal);
-        return sumFinal;
+        return new ResponseEntity<>(sumFinal, HttpStatus.OK);
     }
 
     private void verifyResult(List<LatLng> path, List<LatLng> finalPath) {
@@ -43,6 +45,7 @@ public class LocationController {
         }
         for (int j = 0; j < finalPath.size() - 1; j++) {
             double haversineDistanceBetweenMarkers = lineService.haversineDistanceBetweenMarkers(finalPath.get(j), finalPath.get(j + 1));
+            logger.atInfo().log("Coordinate: " + finalPath.get(j).lat + "," + finalPath.get(j).lng);
 //            logger.atInfo().log("Distance: " + haversineDistanceBetweenMarkers);
             sumFinal += haversineDistanceBetweenMarkers;
         }

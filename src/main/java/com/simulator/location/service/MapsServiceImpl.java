@@ -7,6 +7,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.errors.InvalidRequestException;
 import com.google.maps.model.*;
 import com.simulator.location.config.AppConfig;
+import com.simulator.location.exception.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,8 +83,7 @@ public class MapsServiceImpl implements MapsService {
         if (res.routes != null && res.routes.length > 0) {
             return res;
         } else {
-            //Throw custom exception here
-            throw new InvalidRequestException("Bad Request");
+            throw new AppException("No Routes Found!");
         }
     }
 
