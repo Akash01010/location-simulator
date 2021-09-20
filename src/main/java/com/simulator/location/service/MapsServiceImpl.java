@@ -4,7 +4,6 @@ import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
-import com.google.maps.errors.InvalidRequestException;
 import com.google.maps.model.*;
 import com.simulator.location.config.AppConfig;
 import com.simulator.location.exception.AppException;
@@ -32,15 +31,14 @@ public class MapsServiceImpl implements MapsService {
     }
 
     @Override
-    public List<LatLng> getPathBetweenMarkersAtFixedDistance(LatLng start, LatLng end) throws IOException, InterruptedException, ApiException {
+    public List<LatLng> getPathBetweenMarkersAtFixedDistance(LatLng start, LatLng end, Double step) throws IOException, InterruptedException, ApiException {
 
         List<LatLng> path = getPathBetweenMarkers(start, end);
-        return interpolatePointsAtFixedDistance(path);
+        return interpolatePointsAtFixedDistance(path, step);
     }
 
-    private List<LatLng> interpolatePointsAtFixedDistance(List<LatLng> path) {
+    private List<LatLng> interpolatePointsAtFixedDistance(List<LatLng> path, Double step) {
         double sum = 0.0;
-        double step = 50.0;
         double delta = 0.1;
 
         LatLng currPoint = path.get(0);

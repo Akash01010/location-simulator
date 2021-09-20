@@ -20,7 +20,7 @@ Latitute and Longitude of Sikar: 12.93175,77.62872
 
 Latitude and Longitude of Jaipur: 12.92662,77.63696
 
-Once the application is running, we can visit the URL ```http://localhost:8080/getpath/27.6094,75.1398,26.9124,75.7873``` and it will give the coordinates of points between Sikar and Jaipur separated by 50m.
+Once the application is running, we can visit the URL ```http://localhost:8080/getpath/from/27.6094,75.1398/to/26.9124,75.7873/step/50``` and it will give the coordinates of points between Sikar and Jaipur separated by 50m.
 
 ### API response
 ![alt text](https://github.com/Akash01010/location-simulator/blob/master/api_response.JPG?raw=true)
@@ -43,8 +43,20 @@ and it will plot the graph using the points.
 ### Plot of points returned by API vs Google Maps path
 ![alt text](https://github.com/Akash01010/location-simulator/blob/master/sikar_to_jaipur.JPG?raw=true)
 
+### Plot of points using https://www.mapcustomizer.com
+Start: 12.93175,77.62872
+End: 12.92662,77.63696  
+Step: 50m
+URL: http://localhost:8080/getpath/from/12.93175,77.62872/to/12.92662,77.63696/step/50
 
+![alt text](https://github.com/Akash01010/location-simulator/blob/master/a_to_b.JPG?raw=true)
 
+## Op Info Endpoints
+
+### Health
+```
+http://localhost:8080/actuator/health
+```
 
 ### Reference Documentation
 For further reference, please consider the following sections:

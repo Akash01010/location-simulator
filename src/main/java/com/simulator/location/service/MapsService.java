@@ -10,5 +10,5 @@ public interface MapsService {
 
     List<LatLng> getPathBetweenMarkers(LatLng start, LatLng end) throws ApiException, InterruptedException, IOException;
 
-    List<LatLng> getPathBetweenMarkersAtFixedDistance(LatLng start, LatLng end) throws IOException, InterruptedException, ApiException;
+    List<LatLng> getPathBetweenMarkersAtFixedDistance(LatLng start, LatLng end, Double step) throws IOException, InterruptedException, ApiException;
 }

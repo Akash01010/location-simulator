@@ -26,11 +26,11 @@ public class LocationController {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @GetMapping("/getpath/{data}")
-    public ResponseEntity<List<LatLng>> getPathCoordinates(@PathVariable(value = "data") String data) throws IOException, InterruptedException, ApiException {
-        String[] coordinates = data.split(",");
-        List<LatLng> sumInit = mapsService.getPathBetweenMarkers(new LatLng(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])), new LatLng(Double.parseDouble(coordinates[2]), Double.parseDouble(coordinates[3])));
-        List<LatLng> sumFinal = mapsService.getPathBetweenMarkersAtFixedDistance(new LatLng(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1])), new LatLng(Double.parseDouble(coordinates[2]), Double.parseDouble(coordinates[3])));
+    @GetMapping("/getpath/from/{start}/to/{end}/step/{step}")
+    public ResponseEntity<List<LatLng>> getPathCoordinates(@PathVariable(value = "start") String start, @PathVariable(value = "end") String end, @PathVariable(value = "step") String step) throws IOException, InterruptedException, ApiException {
+
+        List<LatLng> sumInit = mapsService.getPathBetweenMarkers(new LatLng(Double.parseDouble(start.split(",")[0]), Double.parseDouble(start.split(",")[1])), new LatLng(Double.parseDouble(end.split(",")[0]), Double.parseDouble(end.split(",")[1])));
+        List<LatLng> sumFinal = mapsService.getPathBetweenMarkersAtFixedDistance(new LatLng(Double.parseDouble(start.split(",")[0]), Double.parseDouble(start.split(",")[1])), new LatLng(Double.parseDouble(end.split(",")[0]), Double.parseDouble(end.split(",")[1])), Double.parseDouble(step));
 
         verifyResult(sumInit, sumFinal);
         return new ResponseEntity<>(sumFinal, HttpStatus.OK);
@@ -46,13 +46,12 @@ public class LocationController {
         for (int j = 0; j < finalPath.size() - 1; j++) {
             double haversineDistanceBetweenMarkers = lineService.haversineDistanceBetweenMarkers(finalPath.get(j), finalPath.get(j + 1));
             logger.atInfo().log("Coordinate: " + finalPath.get(j).lat + "," + finalPath.get(j).lng);
-//            logger.atInfo().log("Distance: " + haversineDistanceBetweenMarkers);
             sumFinal += haversineDistanceBetweenMarkers;
         }
 
-        logger.atInfo().log("Distance between source and destination using library coordinates: %f kms", sumInit/1000);
-        logger.atInfo().log("Distance between source and destination using interpolated coordinates: %f kms", sumFinal/1000);
-        logger.atInfo().log("Approx number of points expected source and destination after interpolation %f", sumInit/50);
+        logger.atInfo().log("Distance between source and destination using library coordinates: %f kms", sumInit / 1000);
+        logger.atInfo().log("Distance between source and destination using interpolated coordinates: %f kms", sumFinal / 1000);
+        logger.atInfo().log("Approx number of points expected source and destination after interpolation %f", sumInit / 50);
         logger.atInfo().log("Total number of points between source and destination after interpolation %d", finalPath.size());
     }
 }
