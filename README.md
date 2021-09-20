@@ -45,8 +45,11 @@ and it will plot the graph using the points.
 
 ### Plot of points using https://www.mapcustomizer.com
 Start: 12.93175,77.62872
+
 End: 12.92662,77.63696  
+
 Step: 50m
+
 URL: http://localhost:8080/getpath/from/12.93175,77.62872/to/12.92662,77.63696/step/50
 
 ![alt text](https://github.com/Akash01010/location-simulator/blob/master/a_to_b.JPG?raw=true)

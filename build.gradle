@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.simulator'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+sourceCompatibility = '16'
 
 repositories {
 	mavenCentral()
