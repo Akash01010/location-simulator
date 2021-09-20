@@ -7,6 +7,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
 import com.simulator.location.config.AppConfig;
 import com.simulator.location.exception.AppException;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,9 @@ public class MapsServiceImpl implements MapsService {
         return getCoordinatesFromRoute(route);
     }
 
+    @SneakyThrows
     @Override
-    public List<LatLng> getPathBetweenMarkersAtFixedDistance(LatLng start, LatLng end, Double step) throws IOException, InterruptedException, ApiException {
+    public List<LatLng> getPathBetweenMarkersAtFixedDistance(LatLng start, LatLng end, Double step) {
 
         List<LatLng> path = getPathBetweenMarkers(start, end);
         return interpolatePointsAtFixedDistance(path, step);

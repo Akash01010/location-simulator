@@ -1,7 +1,13 @@
+buildscript {
+    ext {
+        spring_boot_version = '2.5.4'
+    }
+}
+
 plugins {
-	id 'org.springframework.boot' version '2.5.4'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version "${spring_boot_version}"
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
 }
 
 group = 'com.simulator'
@@ -9,27 +15,32 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '16'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 
 }
 
+def lombok_version = '1.18.20'
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-aop:2.5.4'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator:2.5.4'
+    implementation "org.springframework.boot:spring-boot-starter-web:${spring_boot_version}"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${spring_boot_version}"
+    implementation "org.springframework.boot:spring-boot-starter-aop:${spring_boot_version}"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${spring_boot_version}"
 
-	implementation 'com.google.maps:google-maps-services:1.0.0'
+    implementation "com.google.maps:google-maps-services:1.0.0"
 
-	implementation 'com.google.flogger:flogger:0.4'
-	implementation 'com.google.flogger:flogger-system-backend:0.4'
+    implementation "com.google.flogger:flogger:0.4"
+    implementation "com.google.flogger:flogger-system-backend:0.4"
 
-	//lombok
-	//swagger
-	//mockito,jupiter,cucumber,karate,pact
-	//
+    compileOnly "org.projectlombok:lombok:${lombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${lombok_version}"
+    testCompileOnly "org.projectlombok:lombok:${lombok_version}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombok_version}"
+
+    //swagger
+    //mockito,jupiter,cucumber,karate,pact
+    //
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

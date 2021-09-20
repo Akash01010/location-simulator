@@ -1,10 +1,10 @@
 package com.simulator.location.controller;
 
-import com.google.common.flogger.FluentLogger;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.LatLng;
 import com.simulator.location.service.LineService;
 import com.simulator.location.service.MapsServiceImpl;
+import lombok.extern.flogger.Flogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
+@Flogger
 @RestController
 public class LocationController {
 
@@ -23,8 +24,6 @@ public class LocationController {
 
     @Autowired
     LineService lineService;
-
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @GetMapping("/getpath/from/{start}/to/{end}/step/{step}")
     public ResponseEntity<List<LatLng>> getPathCoordinates(@PathVariable(value = "start") String start, @PathVariable(value = "end") String end, @PathVariable(value = "step") String step) throws IOException, InterruptedException, ApiException {
@@ -45,13 +44,13 @@ public class LocationController {
         }
         for (int j = 0; j < finalPath.size() - 1; j++) {
             double haversineDistanceBetweenMarkers = lineService.haversineDistanceBetweenMarkers(finalPath.get(j), finalPath.get(j + 1));
-            logger.atInfo().log("Coordinate: " + finalPath.get(j).lat + "," + finalPath.get(j).lng);
+            log.atInfo().log("Coordinate: " + finalPath.get(j).lat + "," + finalPath.get(j).lng);
             sumFinal += haversineDistanceBetweenMarkers;
         }
 
-        logger.atInfo().log("Distance between source and destination using library coordinates: %f kms", sumInit / 1000);
-        logger.atInfo().log("Distance between source and destination using interpolated coordinates: %f kms", sumFinal / 1000);
-        logger.atInfo().log("Approx number of points expected source and destination after interpolation %f", sumInit / 50);
-        logger.atInfo().log("Total number of points between source and destination after interpolation %d", finalPath.size());
+        log.atInfo().log("Distance between source and destination using library coordinates: %f kms", sumInit / 1000);
+        log.atInfo().log("Distance between source and destination using interpolated coordinates: %f kms", sumFinal / 1000);
+        log.atInfo().log("Approx number of points expected source and destination after interpolation %f", sumInit / 50);
+        log.atInfo().log("Total number of points between source and destination after interpolation %d", finalPath.size());
     }
 }
