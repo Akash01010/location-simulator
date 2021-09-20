@@ -16,9 +16,9 @@ gradlew.bat bootRun
 ```
 
 ## Demo
-Latitute and Longitude of Sikar: 12.93175,77.62872
+Latitute and Longitude of Sikar: 27.6094,75.1398
 
-Latitude and Longitude of Jaipur: 12.92662,77.63696
+Latitude and Longitude of Jaipur: 26.9124,75.7873
 
 Once the application is running, we can visit the URL ```http://localhost:8080/getpath/from/27.6094,75.1398/to/26.9124,75.7873/step/50``` and it will give the coordinates of points between Sikar and Jaipur separated by 50m.
 
