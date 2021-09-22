@@ -5,7 +5,6 @@ import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
-import com.simulator.location.config.AppConfig;
 import com.simulator.location.exception.AppException;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class MapsServiceImpl implements MapsService {
     LineService lineService;
 
     @Autowired
-    AppConfig appConfig;
+    GeoApiContext geoApiContext;
 
     @Override
     public List<LatLng> getPathBetweenMarkers(LatLng start, LatLng end) throws ApiException, InterruptedException, IOException {
@@ -75,10 +74,7 @@ public class MapsServiceImpl implements MapsService {
     }
 
     private DirectionsResult getRoutesBetweenMarkers(LatLng start, LatLng end) throws ApiException, InterruptedException, IOException {
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey(appConfig.directionApiKey)
-                .build();
-        DirectionsApiRequest req = DirectionsApi.getDirections(context, start.lat + "," + start.lng, end.lat + "," + end.lng);
+        DirectionsApiRequest req = DirectionsApi.getDirections(geoApiContext, start.lat + "," + start.lng, end.lat + "," + end.lng);
         DirectionsResult res = req.await();
         if (res.routes != null && res.routes.length > 0) {
             return res;
