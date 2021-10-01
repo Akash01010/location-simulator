@@ -4,6 +4,8 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.LatLng;
 import com.simulator.location.service.LineService;
 import com.simulator.location.service.MapsServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.flogger.Flogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,13 +27,14 @@ public class LocationController {
     @Autowired
     LineService lineService;
 
+    @Operation(summary="Give path coordinates at fixed distance")
     @GetMapping("/getpath/from/{start}/to/{end}/step/{step}")
     public ResponseEntity<List<LatLng>> getPathCoordinates(@PathVariable(value = "start") String start, @PathVariable(value = "end") String end, @PathVariable(value = "step") String step) throws IOException, InterruptedException, ApiException {
 
-        List<LatLng> sumInit = mapsService.getPathBetweenMarkers(new LatLng(Double.parseDouble(start.split(",")[0]), Double.parseDouble(start.split(",")[1])), new LatLng(Double.parseDouble(end.split(",")[0]), Double.parseDouble(end.split(",")[1])));
+//        List<LatLng> sumInit = mapsService.getPathBetweenMarkers(new LatLng(Double.parseDouble(start.split(",")[0]), Double.parseDouble(start.split(",")[1])), new LatLng(Double.parseDouble(end.split(",")[0]), Double.parseDouble(end.split(",")[1])));
         List<LatLng> sumFinal = mapsService.getPathBetweenMarkersAtFixedDistance(new LatLng(Double.parseDouble(start.split(",")[0]), Double.parseDouble(start.split(",")[1])), new LatLng(Double.parseDouble(end.split(",")[0]), Double.parseDouble(end.split(",")[1])), Double.parseDouble(step));
 
-        verifyResult(sumInit, sumFinal);
+//        verifyResult(sumInit, sumFinal);
         return new ResponseEntity<>(sumFinal, HttpStatus.OK);
     }
 

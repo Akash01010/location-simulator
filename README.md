@@ -61,6 +61,14 @@ URL: http://localhost:8080/getpath/from/12.93175,77.62872/to/12.92662,77.63696/s
 http://localhost:8080/actuator/health
 ```
 
+### Swagger
+Swagger UI: http://localhost:8080/swagger-ui.html
+
+Default Path for OpenAPI discriptions in json http://localhost:8080/v3/api-docs/
+
+To get in yaml format: http://localhost:8080/v3/api-docs.yaml
+
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 

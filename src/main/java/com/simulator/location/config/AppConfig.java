@@ -2,9 +2,8 @@ package com.simulator.location.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class AppConfig {
 
     @Value("${DIRECTION_API_KEY}")

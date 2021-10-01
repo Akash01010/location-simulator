@@ -20,25 +20,45 @@ repositories {
 }
 
 def lombok_version = '1.18.20'
+def flogger_version = '0.4'
+def openapi_version = '1.5.10'
+
+
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${spring_boot_version}"
     testImplementation "org.springframework.boot:spring-boot-starter-test:${spring_boot_version}"
     implementation "org.springframework.boot:spring-boot-starter-aop:${spring_boot_version}"
     implementation "org.springframework.boot:spring-boot-starter-actuator:${spring_boot_version}"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:${spring_boot_version}"
+    implementation "org.springframework.boot:spring-boot-starter-data-rest:${spring_boot_version}"
+
+   implementation 'mysql:mysql-connector-java:8.0.15'
+    // implementation "com.h2database:h2"
+
 
     implementation "com.google.maps:google-maps-services:1.0.0"
 
-    implementation "com.google.flogger:flogger:0.4"
-    implementation "com.google.flogger:flogger-system-backend:0.4"
+    implementation "com.google.flogger:flogger:${flogger_version}"
+    implementation "com.google.flogger:flogger-system-backend:${flogger_version}"
 
     compileOnly "org.projectlombok:lombok:${lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${lombok_version}"
     testCompileOnly "org.projectlombok:lombok:${lombok_version}"
     testAnnotationProcessor "org.projectlombok:lombok:${lombok_version}"
 
-    //swagger
-    //mockito,jupiter,cucumber,karate,pact
-    //
+    implementation "org.springdoc:springdoc-openapi-ui:${openapi_version}"
+//    implementation "org.springdoc:springdoc-openapi-webflux-ui:${openapi_version}"
+//  mongo
+
+
+    // tracer and logging-filter(correlation-id)
+    // mockito,jupiter,cucumber,karate,pact
+    // wiremock
+    // terraform/istio(security,circuit breaker,)
+    // grpc
+    // spring cloud config
+    // jenkins,
+    // miscellanious: pagenation, webflux??
 }
 
 test {
