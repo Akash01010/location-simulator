@@ -15,6 +15,8 @@ For Windows:
 gradlew.bat bootRun
 ```
 
+**Note:** The application uses Java version 16.
+
 ## Demo
 Latitute and Longitude of Sikar: 27.6094,75.1398
 
@@ -68,6 +70,12 @@ Default Path for OpenAPI discriptions in json http://localhost:8080/v3/api-docs/
 
 To get in yaml format: http://localhost:8080/v3/api-docs.yaml
 
+### Seluth
+Seluth generates applicationName, traceId, spanId for each request and add it to headers. It is also printed in logs as shown below
+```
+2021-10-02 16:03:58.010  INFO **[location-simulator,0640e579462f0792,0640e579462f0792]** 18688 --- [nio-8080-exec-6] c.s.l.controller.LocationController      : Inside Hello
+```
+These logs are stored in memory by Seluth and can be exported to Zipkin Server, ELK for further analysis.
 
 ### Reference Documentation
 For further reference, please consider the following sections:
