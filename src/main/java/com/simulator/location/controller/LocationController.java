@@ -27,6 +27,12 @@ public class LocationController {
     @Autowired
     LineService lineService;
 
+    @GetMapping("/hello")
+    public ResponseEntity<String> greet() {
+        log.atInfo().log("Inside Hello");
+        return new ResponseEntity<String>("Hello", HttpStatus.OK);
+    }
+
     @Operation(summary="Give path coordinates at fixed distance")
     @GetMapping("/getpath/from/{start}/to/{end}/step/{step}")
     public ResponseEntity<List<LatLng>> getPathCoordinates(@PathVariable(value = "start") String start, @PathVariable(value = "end") String end, @PathVariable(value = "step") String step) throws IOException, InterruptedException, ApiException {
@@ -37,7 +43,7 @@ public class LocationController {
 //        verifyResult(sumInit, sumFinal);
         return new ResponseEntity<>(sumFinal, HttpStatus.OK);
     }
-
+    
     private void verifyResult(List<LatLng> path, List<LatLng> finalPath) {
         double sumInit = 0.0;
         double sumFinal = 0.0;

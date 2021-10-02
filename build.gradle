@@ -19,10 +19,11 @@ repositories {
 
 }
 
+def spring_cloud_version = '3.0.4'
 def lombok_version = '1.18.20'
 def flogger_version = '0.4'
 def openapi_version = '1.5.10'
-
+def mysql_version = '8.0.15'
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${spring_boot_version}"
@@ -32,7 +33,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa:${spring_boot_version}"
     implementation "org.springframework.boot:spring-boot-starter-data-rest:${spring_boot_version}"
 
-   implementation 'mysql:mysql-connector-java:8.0.15'
+   implementation "mysql:mysql-connector-java:${mysql_version}"
     // implementation "com.h2database:h2"
 
 
@@ -50,14 +51,16 @@ dependencies {
 //    implementation "org.springdoc:springdoc-openapi-webflux-ui:${openapi_version}"
 //  mongo
 
+    implementation "org.springframework.cloud:spring-cloud-starter-sleuth:${spring_cloud_version}"
 
-    // tracer and logging-filter(correlation-id)
+
     // mockito,jupiter,cucumber,karate,pact
     // wiremock
     // terraform/istio(security,circuit breaker,)
     // grpc
     // spring cloud config
     // jenkins,
+    // ELK integration, Zipkin
     // miscellanious: pagenation, webflux??
 }
 
