@@ -81,7 +81,7 @@ These logs are stored in memory by Seluth and can be exported to Zipkin Server, 
 Zipkin is a distributed tracing system.
 
 **Step 1:** To start the zipkin server, Run
-```
+```commandline
 java -jar zipkin-server-2.23.4-exec.jar
 ```
 
@@ -93,6 +93,40 @@ Zipkin server will start on http://localhost:9411/
 
 After enabling zipkin all the log traces should be visible in zipkin server:
 ![alt text](https://github.com/Akash01010/location-simulator/blob/master/zipkin.JPG?raw=true)
+
+### Jacoco
+To generate jacoco test report, we just need to add jacoco plugin and then run
+```
+./gradlew jacocoTestReport
+```
+The report should be available under ```build/reports/jacoco/test/html/index.html```
+
+If we need reports to be added in different formats, We need to add below block in build.gradle file
+
+```groovy
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required
+        csv.required
+        html.required
+    }
+}
+```
+
+We need to add below section for verifying the code coverage
+```groovy
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            limit {
+                minimum = 0.80
+            }
+        }
+    }
+}
+```
 
 
 ### Reference Documentation
