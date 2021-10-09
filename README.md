@@ -77,6 +77,24 @@ Seluth generates applicationName, traceId, spanId for each request and add it to
 ```
 These logs are stored in memory by Seluth and can be exported to Zipkin Server, ELK for further analysis.
 
+### Zipkin
+Zipkin is a distributed tracing system.
+
+**Step 1:** To start the zipkin server, Run
+```
+java -jar zipkin-server-2.23.4-exec.jar
+```
+
+Zipkin server will start on http://localhost:9411/
+
+**Step 2:** Uncomment ```spring.zipkin.base-url``` in application.properties file.
+
+**Step 3:** Comment line ```spring.zipkin.enabled = false``` in application.properties
+
+After enabling zipkin all the log traces should be visible in zipkin server:
+![alt text](https://github.com/Akash01010/location-simulator/blob/master/zipkin.JPG?raw=true)
+
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 

@@ -35,6 +35,9 @@ dependencies {
 
 
     implementation "org.springframework.cloud:spring-cloud-starter-sleuth:${spring_cloud_version}"
+    implementation "org.springframework.cloud:spring-cloud-sleuth-zipkin:${spring_cloud_version}"
+
+
 
 
     implementation "org.springdoc:springdoc-openapi-ui:${openapi_version}"
@@ -59,14 +62,14 @@ dependencies {
     implementation "com.google.maps:google-maps-services:1.0.0"
 
 
-    // mockito,jupiter,cucumber,karate,pact
+    // mockito,jupiter,cucumber,karate,pact,jacoco,sonar
     // wiremock
     // terraform/istio(security,circuit breaker,telemetry)
     // grpc
     // spring cloud config
     // jenkins,
     // ELK integration, Zipkin
-    // miscellanious: pagenation, webflux??
+    // miscellanious: pagenation, webflux, liquibase??
 }
 
 test {
